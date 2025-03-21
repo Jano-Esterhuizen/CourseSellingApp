@@ -1,0 +1,15 @@
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\bin\Debug\net8.0\CourseSellingApp.Application.deps.json
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\bin\Debug\net8.0\CourseSellingApp.Application.dll
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\bin\Debug\net8.0\CourseSellingApp.Application.pdb
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\bin\Debug\net8.0\CourseSellingApp.Domain.dll
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\bin\Debug\net8.0\CourseSellingApp.Domain.pdb
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\obj\Debug\net8.0\CourseSellingApp.Application.csproj.AssemblyReference.cache
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\obj\Debug\net8.0\CourseSellingApp.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\obj\Debug\net8.0\CourseSellingApp.Application.AssemblyInfoInputs.cache
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\obj\Debug\net8.0\CourseSellingApp.Application.AssemblyInfo.cs
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\obj\Debug\net8.0\CourseSellingApp.Application.csproj.CoreCompileInputs.cache
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\obj\Debug\net8.0\CourseSellingApp.Application.csproj.CopyComplete
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\obj\Debug\net8.0\CourseSellingApp.Application.dll
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\obj\Debug\net8.0\refint\CourseSellingApp.Application.dll
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\obj\Debug\net8.0\CourseSellingApp.Application.pdb
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\obj\Debug\net8.0\ref\CourseSellingApp.Application.dll
