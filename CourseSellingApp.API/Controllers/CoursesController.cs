@@ -41,13 +41,16 @@ namespace CourseSellingApp.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, CourseDTO course)
+        public async Task<IActionResult> Update(Guid id, [FromBody] CourseDTO course)
         {
+            Console.WriteLine($"Received ID: {id}, Course ID in DTO: {course.Id}");
             if (id != course.Id)
-                return BadRequest();
+            {
+                return BadRequest("ID mismatch between URL and body");
+            }
 
-            await _courseService.UpdateCourseAsync(course);
-            return NoContent();
+            var updatedCourse = await _courseService.UpdateCourseAsync(course);
+            return Ok(updatedCourse);
         }
 
         [HttpDelete("{id}")]

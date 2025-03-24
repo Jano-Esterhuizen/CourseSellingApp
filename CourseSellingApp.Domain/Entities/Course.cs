@@ -1,3 +1,5 @@
+//Course.cs
+
 using System;
 
 namespace CourseSellingApp.Domain.Entities
@@ -5,12 +7,12 @@ namespace CourseSellingApp.Domain.Entities
     public class Course
     {
         public Guid Id { get; private set; } = Guid.NewGuid();
-        public string Title { get; private set; }
-        public string Description { get; private set; }
-        public decimal Price { get; private set; }
-        public string Instructor { get; private set; }
-        public string Category { get; private set; }
-        public string ThumbnailUrl { get; private set; }
+        public string Title { get;  set; }
+        public string Description { get;  set; }
+        public decimal Price { get;  set; }
+        public string Instructor { get;  set; }
+        public string Category { get;  set; }
+        public string ThumbnailUrl { get;  set; }
 
         // Private constructor for EF Core or serialization
         private Course() { }

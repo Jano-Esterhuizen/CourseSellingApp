@@ -13,3 +13,4 @@ C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Applicati
 C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\obj\Debug\net8.0\refint\CourseSellingApp.Application.dll
 C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\obj\Debug\net8.0\CourseSellingApp.Application.pdb
 C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\obj\Debug\net8.0\ref\CourseSellingApp.Application.dll
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Application\obj\Debug\net8.0\CourseSellingApp.Application.sourcelink.json

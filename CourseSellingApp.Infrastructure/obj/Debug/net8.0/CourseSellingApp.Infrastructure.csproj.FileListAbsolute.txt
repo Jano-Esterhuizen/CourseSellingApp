@@ -17,3 +17,4 @@ C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Infrastru
 C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Infrastructure\obj\Debug\net8.0\ref\CourseSellingApp.Infrastructure.dll
 C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Infrastructure\bin\Debug\net8.0\CourseSellingApp.Infrastructure.runtimeconfig.json
 C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Infrastructure\obj\Debug\net8.0\CourseSellingApp.Infrastructure.genruntimeconfig.cache
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Infrastructure\obj\Debug\net8.0\CourseSellingApp.Infrastructure.sourcelink.json

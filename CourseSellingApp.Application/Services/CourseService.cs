@@ -36,12 +36,25 @@ namespace CourseSellingApp.Application.Services
             await _courseRepository.AddAsync(course);
         }
 
-        public async Task UpdateCourseAsync(CourseDTO courseDTO)
+        public async Task<CourseDTO> UpdateCourseAsync(CourseDTO courseDTO)
         {
-            var course = new Course(courseDTO.Title, courseDTO.Description, courseDTO.Price,
-                                    courseDTO.Instructor, courseDTO.Category, courseDTO.ThumbnailUrl);
-            // Optionally set the Id if required (depends on your design)
-            await _courseRepository.UpdateAsync(course);
+            var course = await _courseRepository.GetByIdAsync(courseDTO.Id);
+            if (course == null)
+            {
+                throw new InvalidOperationException($"Course with ID {courseDTO.Id} not found.");
+            }
+
+            // Update properties
+            course.Title = courseDTO.Title;
+            course.Description = courseDTO.Description;
+            course.Price = courseDTO.Price;
+            course.Instructor = courseDTO.Instructor;
+            course.Category = courseDTO.Category;
+            course.ThumbnailUrl = courseDTO.ThumbnailUrl;
+
+            await _courseRepository.UpdateAsync(course); // <- Ensure this doesn't return void
+
+            return courseDTO; // <- Make sure to return the updated DTO
         }
 
         public async Task DeleteCourseAsync(Guid id)

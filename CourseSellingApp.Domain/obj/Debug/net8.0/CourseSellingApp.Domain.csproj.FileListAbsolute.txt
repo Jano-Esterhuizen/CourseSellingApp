@@ -9,3 +9,4 @@ C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Domain\ob
 C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Domain\obj\Debug\net8.0\refint\CourseSellingApp.Domain.dll
 C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Domain\obj\Debug\net8.0\CourseSellingApp.Domain.pdb
 C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Domain\obj\Debug\net8.0\ref\CourseSellingApp.Domain.dll
+C:\Users\JanoEsterhuyse\Desktop\Apps\CourseSellingApp\CourseSellingApp.Domain\obj\Debug\net8.0\CourseSellingApp.Domain.sourcelink.json

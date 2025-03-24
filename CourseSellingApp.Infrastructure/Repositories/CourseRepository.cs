@@ -1,3 +1,5 @@
+//CourseRepository.cs
+
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -31,7 +33,7 @@ namespace CourseSellingApp.Infrastructure.Repositories
         public async Task UpdateAsync(Course course)
         {
             _context.Courses.Update(course);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();  // Ensure this is awaited
         }
 
         public async Task DeleteAsync(Guid id)
