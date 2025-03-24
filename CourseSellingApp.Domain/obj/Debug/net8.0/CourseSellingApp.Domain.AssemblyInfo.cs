@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CourseSellingApp.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+81b08ace5560e86c5d637d7971b1e03422727817")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4361463ea6e21fda1949ee2cf8baa01b82603a22")]
 [assembly: System.Reflection.AssemblyProductAttribute("CourseSellingApp.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CourseSellingApp.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
