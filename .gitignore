@@ -482,3 +482,40 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+
+# Build and output directories
+bin/
+obj/
+out/
+
+# Logs
+*.log
+logs/
+
+# User-specific files
+*.user
+*.rsuser
+
+# Configuration files
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Staging.json
+appsettings.Production.json
+
+# SQLite database file
+*.db
+*.db-shm
+*.db-wal
+
+# Dependency directories
+node_modules/
+packages/
+
+# IDE-specific files
+*.vscode/
+*.idea/
