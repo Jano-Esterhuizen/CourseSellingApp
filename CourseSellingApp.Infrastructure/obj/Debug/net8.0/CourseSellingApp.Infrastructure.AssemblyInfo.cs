@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CourseSellingApp.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b05cd82995ca54c259111d037a4cebe51042b602")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+81b08ace5560e86c5d637d7971b1e03422727817")]
 [assembly: System.Reflection.AssemblyProductAttribute("CourseSellingApp.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CourseSellingApp.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
