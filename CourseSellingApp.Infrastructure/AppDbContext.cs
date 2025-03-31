@@ -17,6 +17,7 @@ namespace CourseSellingApp.Infrastructure
         public DbSet<BasketItem> BasketItems { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<UserCourse> UserCourses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +38,16 @@ namespace CourseSellingApp.Infrastructure
                 .HasMany(o => o.Items)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<UserCourse>()
+                .HasOne(uc => uc.Course)
+                .WithMany()
+                .HasForeignKey(uc => uc.CourseId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<UserCourse>()
+                .HasIndex(uc => new { uc.UserId, uc.CourseId })
+                .IsUnique(); // Prevents duplicate enrollments
         }
     }
 
