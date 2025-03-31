@@ -7,13 +7,14 @@ using CourseSellingApp.Infrastructure;
 using CourseSellingApp.Infrastructure.Repositories;
 using CourseSellingApp.Application.Services;
 using Application.Interfaces;
+using CourseSellingApp.Application.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure EF Core with SQLite:
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
-);
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 // Add Identity services:
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
@@ -46,6 +47,9 @@ builder.Services.AddAuthentication(options =>
 // Add your application services
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<IBasketService, BasketService>();
+builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

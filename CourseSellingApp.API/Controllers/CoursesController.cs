@@ -34,14 +34,14 @@ namespace CourseSellingApp.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CourseDTO course)
+        public async Task<IActionResult> Create(CourseDto course)
         {
             await _courseService.AddCourseAsync(course);
             return CreatedAtAction(nameof(GetById), new { id = course.Id }, course);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] CourseDTO course)
+        public async Task<IActionResult> Update(Guid id, [FromBody] CourseDto course)
         {
             Console.WriteLine($"Received ID: {id}, Course ID in DTO: {course.Id}");
             if (id != course.Id)

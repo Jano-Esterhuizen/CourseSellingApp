@@ -17,26 +17,26 @@ namespace CourseSellingApp.Application.Services
             _courseRepository = courseRepository;
         }
 
-        public async Task<CourseDTO?> GetCourseByIdAsync(Guid id)
+        public async Task<CourseDto?> GetCourseByIdAsync(Guid id)
         {
             var course = await _courseRepository.GetByIdAsync(id);
             return course == null ? null : MapToDTO(course);
         }
 
-        public async Task<IEnumerable<CourseDTO>> GetAllCoursesAsync()
+        public async Task<IEnumerable<CourseDto>> GetAllCoursesAsync()
         {
             var courses = await _courseRepository.GetAllAsync();
             return courses.Select(MapToDTO);
         }
 
-        public async Task AddCourseAsync(CourseDTO courseDTO)
+        public async Task AddCourseAsync(CourseDto courseDTO)
         {
             var course = new Course(courseDTO.Title, courseDTO.Description, courseDTO.Price,
                                     courseDTO.Instructor, courseDTO.Category, courseDTO.ThumbnailUrl);
             await _courseRepository.AddAsync(course);
         }
 
-        public async Task<CourseDTO> UpdateCourseAsync(CourseDTO courseDTO)
+        public async Task<CourseDto> UpdateCourseAsync(CourseDto courseDTO)
         {
             var course = await _courseRepository.GetByIdAsync(courseDTO.Id);
             if (course == null)
@@ -62,8 +62,8 @@ namespace CourseSellingApp.Application.Services
             await _courseRepository.DeleteAsync(id);
         }
 
-        private CourseDTO MapToDTO(Course course) =>
-            new CourseDTO
+        private CourseDto MapToDTO(Course course) =>
+            new CourseDto
             {
                 Id = course.Id,
                 Title = course.Title,
@@ -74,29 +74,6 @@ namespace CourseSellingApp.Application.Services
                 ThumbnailUrl = course.ThumbnailUrl
             };
 
-        public Task<Course?> GetByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Course>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task AddAsync(Course course)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(Course course)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

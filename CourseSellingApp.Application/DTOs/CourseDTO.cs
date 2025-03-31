@@ -2,7 +2,7 @@ using System;
 
 namespace CourseSellingApp.Application.DTOs
 {
-    public class CourseDTO
+    public class CourseDto
     {
         public Guid Id { get; set; }
         public string Title { get; set; } = string.Empty;
