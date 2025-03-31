@@ -49,6 +49,9 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IBasketService, BasketService>();
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<ICheckoutService, CheckoutService>();
+
 
 
 builder.Services.AddControllers();
