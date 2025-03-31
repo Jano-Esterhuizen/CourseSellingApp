@@ -18,6 +18,7 @@ namespace CourseSellingApp.Infrastructure
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<UserCourse> UserCourses { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -48,6 +49,10 @@ namespace CourseSellingApp.Infrastructure
             modelBuilder.Entity<UserCourse>()
                 .HasIndex(uc => new { uc.UserId, uc.CourseId })
                 .IsUnique(); // Prevents duplicate enrollments
+
+            modelBuilder.Entity<Payment>()
+                .HasIndex(p => p.PaymentIntentId)
+                .IsUnique();
         }
     }
 

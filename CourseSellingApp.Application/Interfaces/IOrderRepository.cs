@@ -11,5 +11,10 @@ namespace CourseSellingApp.Application.Interfaces
     {
         Task SaveAsync(Order order);
         Task<List<Order>> GetOrdersByUserIdAsync(string userId);
+
+
+        // ✅ New method for Stripe webhook handler
+        Task<Order?> GetByIdAsync(Guid orderId);
     }
+
 }

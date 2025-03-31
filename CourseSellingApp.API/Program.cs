@@ -8,6 +8,8 @@ using CourseSellingApp.Infrastructure.Repositories;
 using CourseSellingApp.Application.Services;
 using Application.Interfaces;
 using CourseSellingApp.Application.Interfaces;
+using CourseSellingApp.Shared.Config;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,15 +46,24 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.Configure<StripeOptions>(
+    builder.Configuration.GetSection("Stripe"));
+
+StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
+
+
 // Add your application services
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IBasketService, BasketService>();
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<ICheckoutService, CheckoutService>();
+builder.Services.AddScoped<ICheckoutService, CourseSellingApp.Application.Services.CheckoutService>();
 builder.Services.AddScoped<IUserCourseRepository, UserCourseRepository>();
 builder.Services.AddScoped<IMyCoursesService, MyCoursesService>();
+builder.Services.AddScoped<IStripeService, StripeService>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+
 
 
 

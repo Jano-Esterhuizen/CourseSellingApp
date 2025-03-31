@@ -7,7 +7,7 @@ namespace Application.Interfaces;
 
 public interface ICourseRepository
 {
-    Task<Course?> GetByIdAsync(Guid id);
+    Task<Course?> GetByIdAsync(Guid courseId);
     Task<IEnumerable<Course>> GetAllAsync();
     Task AddAsync(Course course);
     Task UpdateAsync(Course course);

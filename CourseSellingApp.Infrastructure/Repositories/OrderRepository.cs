@@ -27,11 +27,19 @@ namespace CourseSellingApp.Infrastructure.Repositories
         public async Task<List<Order>> GetOrdersByUserIdAsync(string userId)
         {
             return await _context.Orders
-                .Include(o => o.Items)
                 .Where(o => o.UserId == userId)
-                .OrderByDescending(o => o.CreatedAt)
+                .Include(o => o.Items) // If Order has navigation property Items
                 .ToListAsync();
         }
+
+
+        public async Task<Order?> GetByIdAsync(Guid orderId)
+        {
+            return await _context.Orders
+                .Include(o => o.Items) // Include related items!
+                .FirstOrDefaultAsync(o => o.Id == orderId);
+        }
+
     }
 
 }

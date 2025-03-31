@@ -21,12 +21,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Stripe.net" Version="47.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CourseSellingApp.Application\CourseSellingApp.Application.csproj" />
     <ProjectReference Include="..\CourseSellingApp.Infrastructure\CourseSellingApp.Infrastructure.csproj" />
+    <ProjectReference Include="..\CourseSellingApp.Shared\CourseSellingApp.Shared.csproj" />
   </ItemGroup>
 
 </Project>
