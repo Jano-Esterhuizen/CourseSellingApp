@@ -38,12 +38,20 @@ namespace CourseSellingApp.Infrastructure.Repositories
 
         public async Task DeleteAsync(Guid id)
         {
-            var course = await GetByIdAsync(id);
-            if (course != null)
-            {
-                _context.Courses.Remove(course);
-                await _context.SaveChangesAsync();
-            }
+            var course = await _context.Courses.FindAsync(id);
+            if (course == null)
+                throw new Exception("Course not found");
+
+            // Check if it's referenced in other tables
+            var isInUse = await _context.BasketItems.AnyAsync(b => b.CourseId == id)
+                       || await _context.OrderItems.AnyAsync(o => o.CourseId == id)
+                       || await _context.UserCourses.AnyAsync(u => u.CourseId == id);
+
+            if (isInUse)
+                throw new Exception("Cannot delete: Course is in use by other records");
+
+            _context.Courses.Remove(course);
+            await _context.SaveChangesAsync();
         }
     }
 }

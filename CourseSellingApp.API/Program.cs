@@ -10,6 +10,9 @@ using Application.Interfaces;
 using CourseSellingApp.Application.Interfaces;
 using CourseSellingApp.Shared.Config;
 using Stripe;
+using CourseSellingApp.Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
+using CourseSellingApp.Infrastructure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +22,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 // Add Identity services:
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
@@ -67,12 +70,46 @@ builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 
 
 
-
+builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    string adminEmail = "admin@site.com";
+    string adminPassword = "Admin123!";
+
+    // Create the admin user if not exists
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+    if (adminUser != null && !(await userManager.IsInRoleAsync(adminUser, "Admin")))
+    {
+        await userManager.AddToRoleAsync(adminUser, "Admin");
+    }
+
+    if (adminUser == null)
+    {
+        adminUser = new ApplicationUser
+        {
+            UserName = adminEmail,
+            Email = adminEmail,
+            EmailConfirmed = true
+        };
+
+        var result = await userManager.CreateAsync(adminUser, adminPassword);
+
+        if (result.Succeeded)
+        {
+            await userManager.AddToRoleAsync(adminUser, "Admin");
+        }
+    }
+}
 
 // Middleware configuration:
 if (app.Environment.IsDevelopment())

@@ -19,6 +19,15 @@ namespace CourseSellingApp.API.Controllers
             _logger = logger;
         }
 
+        [HttpPost("checkout-session")]
+        [Authorize]
+        public async Task<IActionResult> CreateCheckoutSession()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+            var url = await _stripeService.CreateCheckoutSessionAsync(userId);
+            return Ok(new { url });
+        }
+
         [HttpPost("webhook")]
         public async Task<IActionResult> StripeWebhook()
         {

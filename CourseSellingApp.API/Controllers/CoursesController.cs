@@ -32,32 +32,6 @@ namespace CourseSellingApp.API.Controllers
             var course = await _courseService.GetCourseByIdAsync(id);
             return course == null ? NotFound() : Ok(course);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CourseDto course)
-        {
-            await _courseService.AddCourseAsync(course);
-            return CreatedAtAction(nameof(GetById), new { id = course.Id }, course);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] CourseDto course)
-        {
-            Console.WriteLine($"Received ID: {id}, Course ID in DTO: {course.Id}");
-            if (id != course.Id)
-            {
-                return BadRequest("ID mismatch between URL and body");
-            }
-
-            var updatedCourse = await _courseService.UpdateCourseAsync(course);
-            return Ok(updatedCourse);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            await _courseService.DeleteCourseAsync(id);
-            return NoContent();
-        }
+        
     }
 }
