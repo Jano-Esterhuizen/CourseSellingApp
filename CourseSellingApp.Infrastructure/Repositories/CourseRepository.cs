@@ -38,7 +38,7 @@ namespace CourseSellingApp.Infrastructure.Repositories
 
         public async Task DeleteAsync(Guid id)
         {
-            var course = await _context.Courses.FindAsync(id);
+            var course = await GetByIdAsync(id);
             if (course == null)
                 throw new Exception("Course not found");
 
