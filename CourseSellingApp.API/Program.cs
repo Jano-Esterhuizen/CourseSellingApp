@@ -12,7 +12,6 @@ using CourseSellingApp.Shared.Config;
 using Stripe;
 using CourseSellingApp.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
-using CourseSellingApp.Infrastructure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,10 +48,23 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Stripe
 builder.Services.Configure<StripeOptions>(
     builder.Configuration.GetSection("Stripe"));
 
 StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
+
+//CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173") //frontend port
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
 
 // Add your application services
@@ -85,14 +97,14 @@ using (var scope = app.Services.CreateScope())
     string adminEmail = "admin@site.com";
     string adminPassword = "Admin123!";
 
-    // Create the admin user if not exists
-    var adminUser = await userManager.FindByEmailAsync(adminEmail);
-
-    if (adminUser != null && !(await userManager.IsInRoleAsync(adminUser, "Admin")))
+    // 1. Ensure "Admin" role exists
+    if (!await roleManager.RoleExistsAsync("Admin"))
     {
-        await userManager.AddToRoleAsync(adminUser, "Admin");
+        await roleManager.CreateAsync(new IdentityRole("Admin"));
     }
 
+    // 2. Create the admin user if not exists
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
     if (adminUser == null)
     {
         adminUser = new ApplicationUser
@@ -119,7 +131,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
+app.UseCors("AllowFrontend");
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 

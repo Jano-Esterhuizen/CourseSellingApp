@@ -48,7 +48,7 @@ namespace CourseSellingApp.Infrastructure.Repositories
                        || await _context.UserCourses.AnyAsync(u => u.CourseId == id);
 
             if (isInUse)
-                throw new Exception("Cannot delete: Course is in use by other records");
+                throw new InvalidOperationException("Course is in use and cannot be deleted.");
 
             _context.Courses.Remove(course);
             await _context.SaveChangesAsync();

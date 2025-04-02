@@ -40,8 +40,48 @@ namespace CourseSellingApp.API.Controllers.Admin
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _courseService.DeleteCourseAsync(id);
-            return NoContent();
+            try
+            {
+                await _courseService.DeleteCourseAsync(id);
+                return NoContent();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "An unexpected error occurred." });
+            }
         }
+
+        [HttpPost("upload")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UploadThumbnail([FromForm] IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded");
+
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+            if (!Directory.Exists(uploadsFolder))
+                Directory.CreateDirectory(uploadsFolder);
+
+            var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+            var filePath = Path.Combine(uploadsFolder, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            if (!System.IO.File.Exists(filePath))
+            {
+                Console.WriteLine("Upload failed — file not saved");
+            }
+
+
+            return Ok(new { fileName = fileName });
+        }
+
     }
 }

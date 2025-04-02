@@ -12,7 +12,7 @@ namespace CourseSellingApp.Domain.Entities
         public decimal Price { get;  set; }
         public string Instructor { get;  set; }
         public string Category { get;  set; }
-        public string ThumbnailUrl { get; set; } = string.Empty;
+        public string ThumbnailUrl { get; set; }
 
 
         // Private constructor for EF Core or serialization
