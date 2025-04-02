@@ -2,11 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api/axios';
 import { useAuth } from '../auth/AuthContext';
+import { Link } from "react-router-dom";
+import { useBasket } from "../context/BasketContext";
+
+
 
 export default function CoursesPage() {
     const { token } = useAuth();
     const [courses, setCourses] = useState([]);
     const [error, setError] = useState('');
+    const { addToBasket } = useBasket();
+
 
     useEffect(() => {
         const fetchCourses = async () => {
@@ -24,6 +30,20 @@ export default function CoursesPage() {
         fetchCourses();
     }, [token]);
 
+    const fetchCourses = async () => {
+        try {
+            const response = await api.get("/courses");
+            setCourses(response.data);
+        } catch (error) {
+            console.error("Failed to fetch courses:", error.response?.data || error.message);
+            if (error.response?.status === 401) {
+                setError("You must be logged in to view courses.");
+            } else {
+                setError("Failed to load courses.");
+            }
+        }
+    };
+
     return (
         <div className="p-6 max-w-6xl mx-auto">
             <h1 className="text-3xl font-bold mb-6">Available Courses</h1>
@@ -38,11 +58,21 @@ export default function CoursesPage() {
                             className="w-full h-40 object-cover mb-2 rounded"
                         />
                         <h2 className="text-xl font-semibold">{course.title}</h2>
+                        <p>{course.description}</p>
                         <p className="text-sm text-gray-600">By {course.instructor}</p>
                         <p className="text-lg font-bold mt-2">${course.price}</p>
                         <div className="mt-4 flex justify-between">
-                            <button className="bg-blue-600 text-white px-3 py-1 rounded text-sm">View</button>
-                            <button className="bg-green-600 text-white px-3 py-1 rounded text-sm">Add to Cart</button>
+                            <button className="bg-blue-600 text-white px-3 py-1 rounded text-sm">
+                                <Link to={`/courses/${course.id}`} className="text-blue-500 hover:underline">
+                                    View Course
+                                </Link>
+                            </button>
+                            <button
+                                className="mt-2 bg-green-600 text-white px-3 py-1 rounded"
+                                onClick={() => addToBasket(course)}
+                            >
+                                Add to Basket
+                            </button>
                         </div>
                     </div>
                 ))}
