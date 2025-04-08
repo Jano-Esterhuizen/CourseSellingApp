@@ -6,6 +6,7 @@ import { AdminDashboard } from './pages/AdminDashboard';
 import { LoginPage } from './pages/LoginPage';
 import { SignupPage } from './pages/SignupPage';
 import { Layout } from './components/Layout';
+import PaymentSuccessPage from './pages/PaymentSuccessPage';
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
       {
         path: '/signup',
         element: <SignupPage />,
+      },
+      {
+        path: '/payment-success',
+        element: <PaymentSuccessPage />,
       },
     ],
   },

@@ -104,13 +104,14 @@ namespace CourseSellingApp.Application.Services
                 throw new Exception("Line items are empty.");
             }
 
+            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             var options = new SessionCreateOptions
             {
                 PaymentMethodTypes = new List<string> { "card" },
                 LineItems = lineItems,
                 Mode = "payment",
-                SuccessUrl = "https://localhost:5173/payment-success",
-                CancelUrl = "https://localhost:5173/payment-cancel"
+                SuccessUrl = "http://localhost:5175/payment-success",
+                CancelUrl = "http://localhost:5175/payment-cancel"
             };
 
             var service = new SessionService();

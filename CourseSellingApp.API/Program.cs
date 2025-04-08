@@ -60,7 +60,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("http://localhost:5175") //frontend port
+            policy.WithOrigins("http://localhost:5175")
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
@@ -130,7 +130,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseCors("AllowFrontend");
 app.UseRouting();

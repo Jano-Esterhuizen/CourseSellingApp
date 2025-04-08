@@ -106,7 +106,7 @@ export const myCoursesService = {
 
 // Payments Service
 export const paymentsService = {
-  createCheckoutSession: async () => {
+  createCheckoutSession: async (): Promise<{ url: string }> => {
     const response = await api.post('/api/payments/checkout-session');
     return response.data;
   }

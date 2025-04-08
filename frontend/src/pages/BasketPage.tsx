@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { basketService } from '../api/services';
+import { basketService, paymentsService } from '../api/services';
 import { useAuth } from '../contexts/AuthContext';
 import toast from 'react-hot-toast';
 import { StarBorder } from '../components/ui/star-border';
@@ -21,6 +21,7 @@ export function BasketPage() {
   const [basket, setBasket] = useState<Basket | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -83,6 +84,24 @@ export function BasketPage() {
     }
   };
 
+  const handleCheckout = async () => {
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
+
+    try {
+      setIsProcessing(true);
+      const { url } = await paymentsService.createCheckoutSession();
+      window.location.href = url;
+    } catch (err) {
+      console.error('Error creating checkout session:', err);
+      toast.error('Failed to initiate checkout');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-[#0A0A0B] text-white">
@@ -135,11 +154,15 @@ export function BasketPage() {
                 <button
                   onClick={handleClearBasket}
                   className="text-gray-400 hover:text-white transition-colors"
+                  disabled={isProcessing}
                 >
                   Clear Basket
                 </button>
-                <StarBorder>
-                  Proceed to Checkout
+                <StarBorder 
+                  onClick={handleCheckout}
+                  disabled={isProcessing}
+                >
+                  {isProcessing ? 'Processing...' : 'Proceed to Checkout'}
                 </StarBorder>
               </div>
             </div>
