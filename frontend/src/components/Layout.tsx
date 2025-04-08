@@ -1,5 +1,6 @@
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { StarBorder } from './ui/star-border';
 
 export function Layout() {
   const { isAuthenticated, isAdmin, logout } = useAuth();
@@ -14,18 +15,18 @@ export function Layout() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-md">
+    <div className="min-h-screen bg-[#0A0A0B]">
+      <nav className="bg-black/50 backdrop-blur-xl border-b border-white/10">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-8">
-              <Link to="/" className="text-xl font-bold text-blue-600">
+              <Link to="/" className="text-xl font-bold text-white">
                 Course Platform
               </Link>
               <div className="hidden md:flex space-x-4">
                 <Link
                   to="/courses"
-                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md"
+                  className="text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-md"
                 >
                   Courses
                 </Link>
@@ -33,13 +34,13 @@ export function Layout() {
                   <>
                     <Link
                       to="/my-courses"
-                      className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md"
+                      className="text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-md"
                     >
                       My Courses
                     </Link>
                     <Link
                       to="/basket"
-                      className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md relative"
+                      className="text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-md relative"
                     >
                       Basket
                     </Link>
@@ -48,7 +49,7 @@ export function Layout() {
                 {isAdmin && (
                   <Link
                     to="/admin"
-                    className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md"
+                    className="text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-md"
                   >
                     Admin
                   </Link>
@@ -60,30 +61,24 @@ export function Layout() {
                 <>
                   <Link
                     to="/login"
-                    className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md"
+                    className="text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-md"
                   >
                     Login
                   </Link>
-                  <Link
-                    to="/signup"
-                    className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-                  >
+                  <StarBorder as={Link} to="/signup">
                     Sign Up
-                  </Link>
+                  </StarBorder>
                 </>
               ) : (
-                <button
-                  onClick={handleLogout}
-                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md"
-                >
+                <StarBorder onClick={handleLogout}>
                   Logout
-                </button>
+                </StarBorder>
               )}
             </div>
           </div>
         </div>
       </nav>
-      <main className="py-4">
+      <main>
         <Outlet />
       </main>
     </div>

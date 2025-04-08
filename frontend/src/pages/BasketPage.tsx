@@ -1,28 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { basketService, paymentsService } from '../api/services';
-import { Course } from '../types/course';
+import { basketService } from '../api/services';
 import { useAuth } from '../contexts/AuthContext';
 import toast from 'react-hot-toast';
+import { StarBorder } from '../components/ui/star-border';
 
-// Update the interface to match the actual API response
 interface BasketItem {
-  id?: string;
   courseId: string;
-  quantity?: number;
-  // Course properties directly on the item
   title: string;
-  description?: string;
   price: number;
-  instructor?: string;
-  imageUrl?: string;
+  instructor: string;
 }
 
 interface Basket {
-  id: string;
-  userId: string;
-  totalPrice: number;
   items: BasketItem[];
+  totalPrice: number;
 }
 
 export function BasketPage() {
@@ -43,7 +35,7 @@ export function BasketPage() {
   const fetchBasket = async () => {
     try {
       const data = await basketService.getBasket();
-      console.log('Basket data:', data); // Debug log
+      console.log('Basket data:', data);
       if (data && typeof data === 'object' && 'items' in data) {
         setBasket(data as Basket);
       } else {
@@ -91,109 +83,76 @@ export function BasketPage() {
     }
   };
 
-  const handleCheckout = async () => {
-    try {
-      const { url } = await paymentsService.createCheckoutSession();
-      if (url) {
-        window.location.href = url;
-      } else {
-        throw new Error('No checkout URL received');
-      }
-    } catch (err) {
-      console.error('Error initiating checkout:', err);
-      setError('Failed to initiate checkout');
-      toast.error('Failed to initiate checkout');
-    }
-  };
-
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+      <div className="flex items-center justify-center min-h-screen bg-[#0A0A0B] text-white">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Your Shopping Basket</h1>
+    <div className="min-h-screen bg-[#0A0A0B] text-white py-8">
+      <div className="max-w-4xl mx-auto px-4">
+        <h1 className="text-3xl font-bold mb-8">Your Shopping Basket</h1>
+        
+        {error && (
+          <div className="bg-red-900/50 border border-red-500/50 text-red-200 px-4 py-3 rounded-lg mb-6">
+            {error}
+          </div>
+        )}
 
-      {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-          {error}
-        </div>
-      )}
-
-      {!basket || !basket.items || basket.items.length === 0 ? (
-        <div className="text-center py-8">
-          <p className="text-gray-600 mb-4">Your basket is empty</p>
-          <button
-            onClick={() => navigate('/courses')}
-            className="text-blue-600 hover:text-blue-800"
-          >
-            Browse Courses
-          </button>
-        </div>
-      ) : (
-        <>
-          <div className="grid gap-4 mb-6">
+        {basket && basket.items.length > 0 ? (
+          <div className="space-y-6">
             {basket.items.map((item) => (
               <div
-                key={`${item.courseId}`}
-                className="bg-white p-4 rounded-lg shadow-md flex justify-between items-center"
+                key={item.courseId}
+                className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg p-6 flex items-center justify-between hover:border-white/20 transition-all duration-300"
               >
-                <div className="flex items-center space-x-4">
-                  <img
-                    src={item.imageUrl || '/placeholder-image.jpg'}
-                    alt={item.title || 'Course Image'}
-                    className="w-20 h-20 object-cover rounded"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = '/placeholder-image.jpg';
-                    }}
-                  />
-                  <div>
-                    <h3 className="font-semibold">{item.title || 'Untitled Course'}</h3>
-                    <p className="text-gray-600">{item.instructor || 'Unknown Instructor'}</p>
-                    <p className="text-blue-600 font-semibold">
-                      ${item.price || 0}
-                      {item.quantity && item.quantity > 1 && ` × ${item.quantity}`}
-                    </p>
-                  </div>
+                <div className="space-y-1">
+                  <h3 className="text-lg font-medium text-white">{item.title}</h3>
+                  <p className="text-gray-400">{item.instructor}</p>
+                  <p className="text-purple-400 font-semibold">${item.price}</p>
                 </div>
                 <button
                   onClick={() => handleRemoveItem(item.courseId)}
-                  className="text-red-600 hover:text-red-800"
+                  className="text-red-400 hover:text-red-300 transition-colors"
                 >
                   Remove
                 </button>
               </div>
             ))}
-          </div>
 
-          <div className="bg-gray-50 p-6 rounded-lg">
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-lg font-semibold">Total:</span>
-              <span className="text-2xl font-bold">${basket.totalPrice.toFixed(2)}</span>
-            </div>
+            <div className="mt-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg p-6">
+              <div className="flex justify-between items-center mb-6">
+                <span className="text-xl font-semibold">Total:</span>
+                <span className="text-2xl font-bold text-purple-400">
+                  ${basket.totalPrice.toFixed(2)}
+                </span>
+              </div>
 
-            <div className="flex justify-between space-x-4">
-              <button
-                onClick={handleClearBasket}
-                className="px-4 py-2 text-gray-700 bg-gray-200 rounded hover:bg-gray-300"
-              >
-                Clear Basket
-              </button>
-              <button
-                onClick={handleCheckout}
-                className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-              >
-                Proceed to Checkout
-              </button>
+              <div className="flex justify-between items-center space-x-4">
+                <button
+                  onClick={handleClearBasket}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Clear Basket
+                </button>
+                <StarBorder>
+                  Proceed to Checkout
+                </StarBorder>
+              </div>
             </div>
           </div>
-        </>
-      )}
+        ) : (
+          <div className="text-center py-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg">
+            <p className="text-gray-400 mb-4">Your basket is empty</p>
+            <StarBorder as="a" href="/courses">
+              Browse Courses
+            </StarBorder>
+          </div>
+        )}
+      </div>
     </div>
   );
 } 
